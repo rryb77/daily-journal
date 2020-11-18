@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Daily Journal</title>
+        <link rel="stylesheet" href="./styles/main.css">
+    </head>
+
+    <body>
+       
+        <header><img class="logo" src="./images/JournalLogo.png" alt="logo"></header>
+        
+        <main id="container">
+            <section class="form">
+                <article class="form__section">
+                    <h2>Daily Journal</h2>
+                    <form action="">
+                        <fieldset class="form__styling">
+                            <label for="JournalDate">Date of Entry</label>
+                            <input type="date" name="journalDate" id="JournalDate">
+                            
+                        </fieldset>
+                        <fieldset class="form__styling">
+                            <label for="JournalConcept">Concepts Covered</label>
+                            <input type="text" name="journalEntry" id="JournalEntry">
+                        </fieldset>
+                        <fieldset class="form__styling">
+                            <label for="JournalEntry">Journal Entry</label>
+                            <textarea></textarea>
+                            
+                        </fieldset>
+
+                        <fieldset class="form__styling"t>
+                            <label for="JournalMood">Mood</label>
+                            <select class="mood__select">
+                                <option value="Happy">Happy</option>
+                                <option value="Ok">Ok</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Frustrated">Frustrated</option>
+                                <option value="Stressed">Stressed</option>
+                            </select>
+                        </fieldset>
+                        
+                        <button class="button">
+                            <label>Record Journal Entry</label>
+                        </button>
+                        
+                    </form>
+                </article>
+
+                <article>
+                    
+                </article>
+            </section>
+            
+        </main>
+
+        
+
+        <script type="module" src="./scripts/main.js"></script>
+       
+        <footer class="footer">Ryan Youngblood - <a href="https://github.com/rryb77">GitHub</a> © 2020</footer>
+    </body>
+    
+</html>
