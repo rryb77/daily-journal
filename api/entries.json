@@ -1,0 +1,32 @@
+{
+    "entries": [
+        {
+            "id": 1,
+            "date": "11/04/2020",
+            "concept": "HTML & CSS",
+            "entry": "We talked about HTML components and how to make grid layouts with Flexbox in CSS.",
+            "mood": "Ok"
+        },
+        {
+            "id": 2,
+            "date": "11/13/2020",
+            "concept": "Teamwork & Git/Github",
+            "entry": "We started our first group project to get used to working in teams while also getting familiar with Git/Github. We're creating a small travel site!",
+            "mood": "Happy"
+        },
+        {
+            "id": 3,
+            "date": "11/18/2020",
+            "concept": "Debugging",
+            "entry": "We discussed the importance of using debugging/dev tools when you get errors or unexpected results in the browser.",
+            "mood": "Ok"
+        },
+        {
+            "id": 4,
+            "date": "11/19/2020",
+            "concept": "JavaScript - Sorting FishLists at Martin's Aquarium",
+            "entry": "Today we added some sorting functionality to the Martin's Aquarium website. Due to the insanity of Martin, he wants to show the Holy fish first, the soldiers next, and then the rest of the fish can be displayed after that. This was an entertaining chapter, but also helped drill down some logic of if/else statements and for loops. I look forward to visiting Martin in the coffee shop again for a laugh, and some more hands-on coding.",
+            "mood": "Happy"
+        }
+    ]
+}
