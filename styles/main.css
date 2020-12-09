@@ -29,7 +29,10 @@ h1,h2,h3,h4,h5,h6 {
 	flex-direction: column;
 	width: 500px;
 	background-color: #83c5be;
-	
+}
+
+.form__section {
+	text-align: center
 }
 
 textarea {
@@ -48,10 +51,26 @@ textarea {
 	margin-top: 10px;
 	background-color: #83c5be;
 	color: black;
+	border: black solid 2px;
 }
 
 .button {
-	margin-top: 3px;
+	margin-top: 10px;
 	margin-left: 3px;
 	background-color: #e29578;
+}
+
+.formContainer {
+	display: flex;
+	flex-wrap: wrap;
+	place-content: center
+}
+
+.header {
+	text-align: center;
+}
+
+.footer {
+	margin-top: 20px;
+	text-align: center;
 }
