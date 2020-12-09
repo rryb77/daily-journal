@@ -1,44 +1,16 @@
-/*
- *   Journal data provider for Daily Journal application
- *
- *      Holds the raw data about each entry and exports
- *      functions that other modules can use to filter
- *      the entries for different purposes.
- */
+//Setup the journal array
+let journal = []
 
-// This is the original data.
-const journal = [
-    {
-        id: 1,
-        date: "11/04/2020",
-        concept: "HTML & CSS",
-        entry: "We talked about HTML components and how to make grid layouts with Flexbox in CSS.",
-        mood: "Ok"
-    },
-    {
-        id: 2,
-        date: "11/13/2020",
-        concept: "Teamwork & Git/Github",
-        entry: "We started our first group project to get used to working in teams while also getting familiar with Git/Github. We're creating a small travel site!",
-        mood: "Happy"
-    },
-    {
-        id: 3,
-        date: "11/18/2020",
-        concept: "Debugging",
-        entry: "We discussed the importance of using debugging/dev tools when you get errors or unexpected results in the browser.",
-        mood: "Ok"
-    }
-]
-
-/*
-    You export a function that provides a version of the
-    raw data in the format that you want
-*/
-export const useJournalEntries = () => {
-    const sortedByDate = journal.sort(
-        (currentEntry, nextEntry) =>
-            Date.parse(currentEntry.date) - Date.parse(nextEntry.date)
-    )
-    return sortedByDate
+// Get entries from the API
+export const getEntries = () => {
+    return fetch("http://localhost:8088/entries") // Fetch from the API
+        .then(response => response.json())  // Parse as JSON
+        .then(
+            entries => {
+            //populate the journal array with the parsed data from the API
+            journal = entries
+        })
 }
+
+// Make use of the data that was collected by exporting it around where needed
+export const useJournalEntries = () => journal.slice()

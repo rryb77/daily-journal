@@ -5,7 +5,11 @@
 export const JournalEntryComponent = (entry) => {
     return `
         <section id="entry--${entry.id}" class="journalEntry">
+            
+            ${entry.concept}<p>
+            ${entry.date}<p>
             ${entry.entry}
+            
         </section>
     `
 }
