@@ -27,7 +27,6 @@ h1,h2,h3,h4,h5,h6 {
 .form__styling {
 	display: flex;
 	flex-direction: column;
-	width: 500px;
 	background-color: #83c5be;
 }
 
@@ -40,11 +39,11 @@ textarea {
 }
 
 .mood__select {
-	width: 100px;
+	width: 25%;
 }
 
 .form__dropdown {
-	width: 145px;
+	width: 40%;
 }
 
 .journalEntry {
@@ -63,7 +62,7 @@ textarea {
 .formContainer {
 	display: flex;
 	flex-wrap: wrap;
-	place-content: center
+	place-content: center;
 }
 
 .header {
@@ -73,4 +72,19 @@ textarea {
 .footer {
 	margin-top: 20px;
 	text-align: center;
+}
+
+#btnRecord {
+	width: 40%;
+    align-self: center;
+    margin-top: 10px;
+}
+
+.textLabels {
+	text-align: -webkit-left;
+	width: 40%;
+}
+
+.journalForm {
+	width: 50%
 }
