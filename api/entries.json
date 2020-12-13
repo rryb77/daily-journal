@@ -27,13 +27,6 @@
       "concept": "JavaScript - Sorting FishLists at Martin's Aquarium",
       "entry": "Today we added some sorting functionality to the Martin's Aquarium website. Due to the insanity of Martin, he wants to show the Holy fish first, the soldiers next, and then the rest of the fish can be displayed after that. This was an entertaining chapter, but also helped drill down some logic of if/else statements and for loops. I look forward to visiting Martin in the coffee shop again for a laugh, and some more hands-on coding.",
       "mood": "Happy"
-    },
-    {
-      "concept": "Testing out the record button",
-      "entry": "Let's see if the button works?",
-      "date": "2020-12-11",
-      "mood": "Neutral",
-      "id": 5
     }
   ]
 }
