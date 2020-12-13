@@ -1,6 +1,6 @@
-const eventHub = document.querySelector('#container')
+const eventHub = document.querySelector('#container');
 //Setup the journal array
-let journal = []
+let journal = [];
 
 // Get entries from the API
 export const getEntries = () => {
@@ -11,14 +11,14 @@ export const getEntries = () => {
             //populate the journal array with the parsed data from the API
             journal = entries
         })
-}
+};
 
 // Make use of the data that was collected by exporting it around where needed
-export const useJournalEntries = () => journal.slice()
+export const useJournalEntries = () => journal.slice();
 
 // Broadcast that the app state has changed because a new item was added to the array
 export const dispatchStateChangeEvent = () => {
-    eventHub.dispatchEvent(new CustomEvent("journalStateChanged"))
+    eventHub.dispatchEvent(new CustomEvent("journalStateChanged"));
 }
 
 export const saveJournalEntry = (newJournalEntry) => {
@@ -32,4 +32,4 @@ export const saveJournalEntry = (newJournalEntry) => {
     })
         .then(getEntries)  // <-- Get all journal entries
         .then(dispatchStateChangeEvent)  // <-- Broadcast the state change event
-}
+};
