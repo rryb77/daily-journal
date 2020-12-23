@@ -1,11 +1,13 @@
 import { saveJournalEntry } from "./JournalDataProvider.js"
+import { getMoods, useMoods } from "./moodProvider.js";
 import { profanityDialogGenerator } from "./profanityDialog.js"
 import { getUserTextFiltered } from './profanityFilter.js'
 
 const contentTarget = document.querySelector(".formContainer");
 const eventHub = document.querySelector("#container");
+const moodsTarget = document.querySelector('#moodSelect')
 
-const render = () => {
+const render = (allMoods) => {
     contentTarget.innerHTML = `
     <form class="journalForm" action="">
 
@@ -28,12 +30,13 @@ const render = () => {
         <fieldset class="form__styling">
             <label class="textLabels" for="JournalMood">Mood</label>
             <select class="mood__select" id="moodSelect">
-                <option value="select">Select a mood...</option>
-                <option value="Happy">Happy</option>
-                <option value="Ok">Ok</option>
-                <option value="Neutral">Neutral</option>
-                <option value="Frustrated">Frustrated</option>
-                <option value="Stressed">Stressed</option>
+                ${
+                    allMoods.map(
+                        moodObject => {
+                            return `<option value=mood--${moodObject.id}>${moodObject.mood.label}</option>`
+                        }
+                    )
+                }
             </select>
 
             <button type="button" class="btnRecord" id="btnRecord">Record Journal Entry</button>
@@ -45,7 +48,10 @@ const render = () => {
 
 // Render the daily journal form to the DOM
 export const JournalFormComponent = () => {
-    render();
+    getMoods().then(() => {
+        const allMoods = useMoods()
+        render(allMoods);
+    })
 }
 
 //---------------------------------------//

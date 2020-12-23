@@ -10,7 +10,7 @@ export const JournalEntryComponent = (entry) => {
             <b>Date:</b> ${entry.date}<p>
             <b>Journal Entry:</b><p>
             ${entry.entry}<p>
-            <b>Mood:</b> ${entry.mood}
+            <b>Mood:</b> ${entry.mood.label}
             
         </section>
     `
