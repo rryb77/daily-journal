@@ -1,4 +1,5 @@
-import { saveJournalEntry } from "./JournalDataProvider.js"
+import { useInstructors, getInstructors } from "./instructorProvider.js";
+import { getEntries, saveJournalEntry } from "./JournalDataProvider.js"
 import { getMoods, useMoods } from "./moodProvider.js";
 import { profanityDialogGenerator } from "./profanityDialog.js"
 import { getUserTextFiltered } from './profanityFilter.js'
@@ -7,7 +8,8 @@ const contentTarget = document.querySelector(".formContainer");
 const eventHub = document.querySelector("#container");
 const moodsTarget = document.querySelector('#moodSelect')
 
-const render = (allMoods) => {
+const render = (allMoods, allInstructors) => {
+    
     contentTarget.innerHTML = `
     <form class="journalForm" action="">
 
@@ -20,6 +22,20 @@ const render = (allMoods) => {
             <label class="textLabels" for="JournalConcept">Concepts Covered</label>
             <input type="text" name="journalEntry" id="conceptsCovered">
             <div class="error"></div>
+        </fieldset>
+
+        <fieldset class="form__styling">
+            <label class="textLabels" for="JournalInstructor">Instructor</label>
+            <select class="instructor__select" id="instructorSelect">
+                ${
+                    allInstructors.map(
+                        instructorObj => {
+                            return `<option value=instructor--${instructorObj.id}>${instructorObj.first_name} ${instructorObj.last_name}</option>`
+                        }
+                    )
+                }
+            </select>
+
         </fieldset>
         
         <fieldset class="form__styling">
@@ -42,15 +58,23 @@ const render = (allMoods) => {
             <button type="button" class="btnRecord" id="btnRecord">Record Journal Entry</button>
 
         </fieldset>
+            
+        
+
+        
     `
 };
 
 
 // Render the daily journal form to the DOM
 export const JournalFormComponent = () => {
-    getMoods().then(() => {
-        const allMoods = useMoods()
-        render(allMoods);
+    getMoods()
+        .then(getInstructors)
+        .then(getEntries)
+        .then(() => {
+            const allMoods = useMoods()
+            const allInstructors = useInstructors()
+            render(allMoods, allInstructors);
     })
 }
 
@@ -80,7 +104,7 @@ eventHub.addEventListener("click", clickEvent => {
             concept: concept.value,
             entry: entry.value,
             date: date.value,
-             mood: mood.value
+            mood: mood.value
         };
 
         // Grab the words and store them in a variable to filter for bad words
