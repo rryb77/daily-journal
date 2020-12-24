@@ -30,7 +30,7 @@ const render = (allMoods, allInstructors) => {
                 ${
                     allInstructors.map(
                         instructorObj => {
-                            return `<option value=instructor--${instructorObj.id}>${instructorObj.first_name} ${instructorObj.last_name}</option>`
+                            return `<option value=${instructorObj.id}>${instructorObj.first_name} ${instructorObj.last_name}</option>`
                         }
                     )
                 }
@@ -49,7 +49,7 @@ const render = (allMoods, allInstructors) => {
                 ${
                     allMoods.map(
                         moodObject => {
-                            return `<option value=mood--${moodObject.id}>${moodObject.mood.label}</option>`
+                            return `<option value=${moodObject.id}>${moodObject.mood.label}</option>`
                         }
                     )
                 }
@@ -96,15 +96,17 @@ eventHub.addEventListener("click", clickEvent => {
         const entry = document.querySelector('#journalEntry');
         const mood = document.querySelector('#moodSelect');
         const date = document.querySelector('#journalDate');
+        const instructor = document.querySelector('#instructorSelect')
 
-
+        console.log(instructor.value)
         // Make a new object representation of a note
         // Use the defined variables above to create key/value pairs
         const newEntry = {
             concept: concept.value,
             entry: entry.value,
             date: date.value,
-            mood: mood.value
+            instructorId: parseInt(instructor.value),
+            moodId: parseInt(mood.value)
         };
 
         // Grab the words and store them in a variable to filter for bad words
@@ -150,7 +152,7 @@ eventHub.addEventListener("click", clickEvent => {
             saveJournalEntry(newEntry)
             concept.value = ""
             entry.value = ""
-            date.value = "mm/dd/yyyy"
+            date.value = "yyyy-MM-dd"
             mood.value = ""
 
         };
