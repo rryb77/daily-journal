@@ -1,16 +1,13 @@
 export const profanityDialogGenerator = (conceptBaddies, entryBaddies) => {
     const dialogBox = document.querySelector('#profanityDialog')
-    const conceptElement = document.querySelector('#awfulConceptWords')
     
     dialogBox.innerHTML = `
         <div><h2>Whoa there buddy!<h2></div>
-        <div>No judgement here, but my boss told me we can't use what he calls "awful words". I really like my job so can you rephrase the following words:</div>
+        <div>This is a family friendly website. Please change or remove the following words:</div>
         <p><div>Concepts Covered:<div>
             ${
                 conceptBaddies.map(
                     conceptItem => {
-                        // const valueToBeInNewArray = officerObj.name
-                        console.log(conceptItem)
                         return `${conceptItem}`
                     }
                 )
@@ -19,8 +16,6 @@ export const profanityDialogGenerator = (conceptBaddies, entryBaddies) => {
         ${
             entryBaddies.map(
                 entryItem => {
-                    // const valueToBeInNewArray = officerObj.name
-                    console.log(entryItem)
                     return `${entryItem}`
                 }
             )
@@ -28,10 +23,6 @@ export const profanityDialogGenerator = (conceptBaddies, entryBaddies) => {
 
         
     `
-
-    // for (let word of conceptBaddies) {
-    //     dialogBox.innerHTML += word
-    // }
-    
+    // Show the dialog to alert the user
     dialogBox.showModal()
 }

@@ -1,5 +1,7 @@
+// Array of instructors initialized
 let instructors = [];
 
+// Get the list of instructors
 export const getInstructors = () => {
     return fetch("http://localhost:8088/instructors") // Fetch from the API
         .then(response => response.json())  // Parse as JSON

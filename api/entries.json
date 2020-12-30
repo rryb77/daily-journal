@@ -31,38 +31,6 @@
       "entry": "Today we added some sorting functionality to the Martin's Aquarium website. Due to the insanity of Martin, he wants to show the Holy fish first, the soldiers next, and then the rest of the fish can be displayed after that. This was an entertaining chapter, but also helped drill down some logic of if/else statements and for loops. I look forward to visiting Martin in the coffee shop again for a laugh, and some more hands-on coding.",
       "moodId": 4,
       "instructorId": 1
-    },
-    {
-      "concept": "Testing the Save",
-      "entry": "Here it is!",
-      "date": "2020-12-22",
-      "moodId": 6,
-      "id": 5,
-      "instructorId": 3
-    },
-    {
-      "concept": "Test",
-      "entry": "Test",
-      "date": "2020-12-24",
-      "instructorId": 1,
-      "moodId": 1,
-      "id": 6
-    },
-    {
-      "concept": "Test",
-      "entry": "Testtttt",
-      "date": "2020-12-24",
-      "instructorId": 1,
-      "moodId": 1,
-      "id": 7
-    },
-    {
-      "concept": "Test",
-      "entry": "testttttt",
-      "date": "2020-12-24",
-      "instructorId": 1,
-      "moodId": 1,
-      "id": 8
     }
   ],
   "moods": [

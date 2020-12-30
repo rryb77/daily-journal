@@ -4,10 +4,12 @@ import { getMoods, useMoods } from "./moodProvider.js";
 import { profanityDialogGenerator } from "./profanityDialog.js"
 import { getUserTextFiltered } from './profanityFilter.js'
 
+// Location on the DOM for the entry form
 const contentTarget = document.querySelector(".formContainer");
+// eventHub for listener events
 const eventHub = document.querySelector("#container");
-const moodsTarget = document.querySelector('#moodSelect')
 
+// Render the form to the DOM
 const render = (allMoods, allInstructors) => {
     
     contentTarget.innerHTML = `
@@ -49,7 +51,7 @@ const render = (allMoods, allInstructors) => {
                 ${
                     allMoods.map(
                         moodObject => {
-                            return `<option value=${moodObject.id}>${moodObject.mood.label}</option>`
+                            return `<option value=${moodObject.id}>${moodObject.label}</option>`
                         }
                     )
                 }
@@ -58,19 +60,14 @@ const render = (allMoods, allInstructors) => {
             <button type="button" class="btnRecord" id="btnRecord">Record Journal Entry</button>
 
         </fieldset>
-            
-        
-
-        
     `
 };
 
-
 // Render the daily journal form to the DOM
 export const JournalFormComponent = () => {
-    getMoods()
-        .then(getInstructors)
-        .then(getEntries)
+    getMoods() // Get the moods then..
+        .then(getInstructors) // Get the instructor list then..
+        //.then(getEntries) // TODO: I don't think I need this, confirm through tests and then remove
         .then(() => {
             const allMoods = useMoods()
             const allInstructors = useInstructors()
@@ -88,7 +85,7 @@ export const JournalFormComponent = () => {
 //----------------------------------
 
 eventHub.addEventListener("click", clickEvent => {
-    
+    // If the click event target id is equal to btnRecord then..
     if (clickEvent.target.id === "btnRecord") {
         
         // Set the DOM locations to grab data from
@@ -98,7 +95,6 @@ eventHub.addEventListener("click", clickEvent => {
         const date = document.querySelector('#journalDate');
         const instructor = document.querySelector('#instructorSelect')
 
-        console.log(instructor.value)
         // Make a new object representation of a note
         // Use the defined variables above to create key/value pairs
         const newEntry = {
@@ -106,7 +102,7 @@ eventHub.addEventListener("click", clickEvent => {
             entry: entry.value,
             date: date.value,
             instructorId: parseInt(instructor.value),
-            moodId: parseInt(mood.value)
+            moodId: parseInt(mood.value) // parseInt - parse the string and return an integer
         };
 
         // Grab the words and store them in a variable to filter for bad words
@@ -153,7 +149,8 @@ eventHub.addEventListener("click", clickEvent => {
             concept.value = ""
             entry.value = ""
             date.value = "yyyy-MM-dd"
-            mood.value = ""
+            mood.value = 1
+            instructor.value = 1
 
         };
     };

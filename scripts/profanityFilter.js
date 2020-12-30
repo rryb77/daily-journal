@@ -1,7 +1,7 @@
 const filterText = (isTheTextBad) => {
     
     // Define bad words below
-    let badWords = ["shit", "fuck", "damn", "fucker", "dickhead", "ass"]
+    let badWords = ["idiot", "meanie", "stupidhead", "L7 weenie", "moron", "stinkbrain"]
 
     // Find any bad words defined above using the filter method
     let foundBadWords = isTheTextBad.filter(bad => badWords.includes(bad))
