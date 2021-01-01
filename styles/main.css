@@ -96,3 +96,8 @@ textarea {
 .error {
 	color: red;
 }
+
+.filters {
+	width: 45%;
+	
+}
