@@ -45,3 +45,19 @@ eventHub.addEventListener("journalStateChanged", () => {
     console.log('The Journal State Changed')
 })
 
+// Event listener for the moodChosen event broadcasted from filterBar.js
+eventHub.addEventListener("moodChosen", e => {
+    
+    // Filter the entries by the chosen mood value
+    if (e.detail.moodValue != 0) {
+        getEntries().then(() => {
+            let moodSelection = e.detail.moodValue
+            let appStateEntries = useJournalEntries()
+            const matchingEntries = appStateEntries.filter(entry => entry.moodId === parseInt(moodSelection))
+            render(matchingEntries)
+        })
+    // Clear the filter and list all entries
+    } else {
+        EntryListComponent()
+    }
+})

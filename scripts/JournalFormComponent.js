@@ -1,3 +1,4 @@
+import { FilterBar } from "./filter/filterBar.js";
 import { useInstructors, getInstructors } from "./instructorProvider.js";
 import { getEntries, saveJournalEntry } from "./JournalDataProvider.js"
 import { getMoods, useMoods } from "./moodProvider.js";
@@ -71,6 +72,7 @@ export const JournalFormComponent = () => {
         .then(() => {
             const allMoods = useMoods()
             const allInstructors = useInstructors()
+            FilterBar(allMoods)
             render(allMoods, allInstructors);
     })
 }
