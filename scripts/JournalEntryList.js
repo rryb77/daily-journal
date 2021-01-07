@@ -11,6 +11,27 @@ const eventHub = document.querySelector('#container')
 // DOM reference to where all entries will be rendered
 const entryLog = document.querySelector("#entryLog")
 
+
+
+eventHub.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id.startsWith("editEntry--")) {
+        const [notUsed, entryId] = clickEvent.target.id.split("--")
+
+        /*
+            Let all other components know that the user chose
+            to edit an entry, and attach data to the message
+            so that any listeners know which entry should be
+            edited.
+        */
+        const message = new CustomEvent("editEntryClicked", {
+            detail: {
+                entryId: entryId
+            }
+        })
+        eventHub.dispatchEvent(message)
+    }
+})
+
 // Render the list of entries to the DOM
 export const EntryListComponent = () => {
     // get the data first then use useJournalEntries to get a slice of it to render the data

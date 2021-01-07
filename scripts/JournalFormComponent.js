@@ -1,6 +1,6 @@
 import { FilterBar } from "./filter/filterBar.js";
 import { useInstructors, getInstructors } from "./instructorProvider.js";
-import { getEntries, saveJournalEntry } from "./JournalDataProvider.js"
+import { updateEntries, saveJournalEntry, useJournalEntries } from "./JournalDataProvider.js"
 import { getMoods, useMoods } from "./moodProvider.js";
 import { profanityDialogGenerator } from "./profanityDialog.js"
 import { getUserTextFiltered } from './profanityFilter.js'
@@ -83,6 +83,35 @@ export const JournalFormComponent = () => {
 
 
 //----------------------------------
+// Click eventListener for editEntry
+//----------------------------------
+
+eventHub.addEventListener("editEntryClicked", message => {
+    let entriesCollection = useJournalEntries()
+    console.log(entriesCollection)
+    console.log(message.detail.entryId)
+    const entryToEdit = entriesCollection.find( entry => entry.id === parseInt(message.detail.entryId) )
+    console.log(entryToEdit)
+
+    const concept = document.querySelector('#conceptsCovered');
+    const entry = document.querySelector('#journalEntry');
+    const mood = document.querySelector('#moodSelect');
+    const date = document.querySelector('#journalDate');
+    const instructor = document.querySelector('#instructorSelect')
+    
+    console.log(entryToEdit.concept)
+    concept.value = entryToEdit.concept
+    entry.value = entryToEdit.entry
+    mood.value = entryToEdit.mood.id
+    date.value = entryToEdit.date
+    instructor.value = entryToEdit.instructor.id
+
+
+
+})
+
+
+//----------------------------------
 // Click eventListener for btnRecord
 //----------------------------------
 
@@ -97,6 +126,7 @@ eventHub.addEventListener("click", clickEvent => {
         const date = document.querySelector('#journalDate');
         const instructor = document.querySelector('#instructorSelect')
 
+        const id = document.querySelector("#entryId").name
         // Make a new object representation of a note
         // Use the defined variables above to create key/value pairs
         const newEntry = {
@@ -146,7 +176,7 @@ eventHub.addEventListener("click", clickEvent => {
             };
         
         // If it's clean then send it through our API and update the application state
-        } else {
+        } else if (id === ""){
             saveJournalEntry(newEntry)
             concept.value = ""
             entry.value = ""
@@ -154,7 +184,16 @@ eventHub.addEventListener("click", clickEvent => {
             mood.value = 1
             instructor.value = 1
 
-        };
+        } else {
+            const updatedEntry = {
+                concept: concept.value,
+                entry: entry.value,
+                date: date.value,
+                instructorId: parseInt(instructor.value),
+                moodId: parseInt(mood.value) // parseInt - parse the string and return an integer
+            }
+            updateEntries(id, updatedEntry)
+        }
     };
 });
 
