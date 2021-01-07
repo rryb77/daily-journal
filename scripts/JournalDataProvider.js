@@ -46,8 +46,8 @@ export const deleteEntry = entryId => {
         .then(dispatchStateChangeEvent) // Dispatch the state change event to re-render the DOM
 }
 
-export const updateEntries = (entryId, updatedEntry) => {
-    return fetch(`http://localhost:8088/entries/${entryId}`, {
+export const updateEntries = (updatedEntry) => {
+    return fetch(`http://localhost:8088/entries/${updatedEntry.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
