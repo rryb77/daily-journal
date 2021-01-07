@@ -96,3 +96,13 @@ textarea {
 .error {
 	color: red;
 }
+
+.filters {
+	width: 45%;
+	
+}
+
+.btn {
+	margin-left: 5px;
+	margin-bottom: 10px;
+}

@@ -1,5 +1,6 @@
+import { FilterBar } from "./filter/filterBar.js";
 import { useInstructors, getInstructors } from "./instructorProvider.js";
-import { getEntries, saveJournalEntry } from "./JournalDataProvider.js"
+import { updateEntries, saveJournalEntry, useJournalEntries } from "./JournalDataProvider.js"
 import { getMoods, useMoods } from "./moodProvider.js";
 import { profanityDialogGenerator } from "./profanityDialog.js"
 import { getUserTextFiltered } from './profanityFilter.js'
@@ -71,6 +72,7 @@ export const JournalFormComponent = () => {
         .then(() => {
             const allMoods = useMoods()
             const allInstructors = useInstructors()
+            FilterBar(allMoods)
             render(allMoods, allInstructors);
     })
 }
@@ -81,10 +83,42 @@ export const JournalFormComponent = () => {
 
 
 //----------------------------------
+// Click eventListener for editEntry
+//----------------------------------
+let entryId = ""
+
+eventHub.addEventListener("editEntryClicked", message => {
+    let entriesCollection = useJournalEntries()
+    console.log(entriesCollection)
+    console.log(message.detail.entryId)
+    const entryToEdit = entriesCollection.find( entry => entry.id === parseInt(message.detail.entryId) )
+    console.log(entryToEdit)
+
+    const concept = document.querySelector('#conceptsCovered');
+    const entry = document.querySelector('#journalEntry');
+    const mood = document.querySelector('#moodSelect');
+    const date = document.querySelector('#journalDate');
+    const instructor = document.querySelector('#instructorSelect')
+
+    entryId = message.detail.entryId
+    
+    concept.value = entryToEdit.concept
+    entry.value = entryToEdit.entry
+    mood.value = entryToEdit.mood.id
+    date.value = entryToEdit.date
+    instructor.value = entryToEdit.instructor.id
+
+
+
+})
+
+
+//----------------------------------
 // Click eventListener for btnRecord
 //----------------------------------
 
 eventHub.addEventListener("click", clickEvent => {
+    
     // If the click event target id is equal to btnRecord then..
     if (clickEvent.target.id === "btnRecord") {
         
@@ -120,41 +154,77 @@ eventHub.addEventListener("click", clickEvent => {
         let conceptWordsFound = allTheText.conceptWordsTyped.badWordsList;
         let entryWordsFound = allTheText.entryWordsTyped.badWordsList;
 
-        // Were any bad words found in the concept OR entry inputs?
-        if (conceptBad === true || entryBad === true) {
-            
-            // If user text contains bad words in both the concept and entry section then alert the user, do not send through API
-            if(conceptBad === true && entryBad === true) {
-                profanityDialogGenerator(conceptWordsFound, entryWordsFound);
+        if (entryId === "") {
+            // Were any bad words found in the concept OR entry inputs?
+            if (conceptBad === true || entryBad === true) {
+                // If user text contains bad words in both the concept and entry section then alert the user, do not send through API
+                if(conceptBad === true && entryBad === true) {
+                    profanityDialogGenerator(conceptWordsFound, entryWordsFound);
 
-            // If user text contains bad words only the concept section then...
-            } else if (conceptBad === true && entryBad === false) {
-                
-                // Set entryWordsFound to "N/A" then send the arrays to the generator
-                let entryWordsFound = ["N/A"];
-                profanityDialogGenerator(conceptWordsFound, entryWordsFound);
+                // If user text contains bad words only the concept section then...
+                } else if (conceptBad === true && entryBad === false) {
+                    
+                    // Set entryWordsFound to "N/A" then send the arrays to the generator
+                    let entryWordsFound = ["N/A"];
+                    profanityDialogGenerator(conceptWordsFound, entryWordsFound);
 
-            // If user text contains bad words only in the entry section then...
-            } else if (conceptBad === false && entryBad === true) {
-                
-                // Set conceptWordsFound to "N/A" then send the arrays to the generator
-                let conceptWordsFound = ["N/A"];
-                profanityDialogGenerator(conceptWordsFound, entryWordsFound);
+                // If user text contains bad words only in the entry section then...
+                } else if (conceptBad === false && entryBad === true) {
+                    
+                    // Set conceptWordsFound to "N/A" then send the arrays to the generator
+                    let conceptWordsFound = ["N/A"];
+                    profanityDialogGenerator(conceptWordsFound, entryWordsFound);
 
-            };
-        
-        // If it's clean then send it through our API and update the application state
+                };
+            // If it's clean then send it through our API and update the application state
+            } else { 
+                saveJournalEntry(newEntry)
+                concept.value = ""
+                entry.value = ""
+                date.value = "yyyy-MM-dd"
+                mood.value = 1
+                instructor.value = 1
+            }
         } else {
-            saveJournalEntry(newEntry)
-            concept.value = ""
-            entry.value = ""
-            date.value = "yyyy-MM-dd"
-            mood.value = 1
-            instructor.value = 1
+            // Were any bad words found in the concept OR entry inputs?
+            if (conceptBad === true || entryBad === true) {
+                // If user text contains bad words in both the concept and entry section then alert the user, do not send through API
+                if(conceptBad === true && entryBad === true) {
+                    profanityDialogGenerator(conceptWordsFound, entryWordsFound);
 
-        };
+                // If user text contains bad words only the concept section then...
+                } else if (conceptBad === true && entryBad === false) {
+                    
+                    // Set entryWordsFound to "N/A" then send the arrays to the generator
+                    let entryWordsFound = ["N/A"];
+                    profanityDialogGenerator(conceptWordsFound, entryWordsFound);
+
+                // If user text contains bad words only in the entry section then...
+                } else if (conceptBad === false && entryBad === true) {
+                    
+                    // Set conceptWordsFound to "N/A" then send the arrays to the generator
+                    let conceptWordsFound = ["N/A"];
+                    profanityDialogGenerator(conceptWordsFound, entryWordsFound);
+
+                };
+            } else {
+            const updatedEntry = {
+                id: entryId,
+                concept: concept.value,
+                entry: entry.value,
+                date: date.value,
+                instructorId: parseInt(instructor.value),
+                moodId: parseInt(mood.value) // parseInt - parse the string and return an integer
+            }
+            updateEntries(updatedEntry)
+                concept.value = ""
+                entry.value = ""
+                date.value = "yyyy-MM-dd"
+                mood.value = 1
+                instructor.value = 1
+        }
     };
-});
+}});
 
 //---------------------------------------------------
 // keypress eventListener to check the max characters

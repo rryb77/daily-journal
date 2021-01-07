@@ -45,3 +45,15 @@ export const deleteEntry = entryId => {
         .then(getEntries) // Grab the updated list of entries
         .then(dispatchStateChangeEvent) // Dispatch the state change event to re-render the DOM
 }
+
+export const updateEntries = (updatedEntry) => {
+    return fetch(`http://localhost:8088/entries/${updatedEntry.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedEntry)
+    })
+        .then(getEntries) // Grab the updated list of entries
+        .then(dispatchStateChangeEvent) // Dispatch the state change event to re-render the DOM
+}
